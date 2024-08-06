@@ -33,12 +33,12 @@ class DatabricksResource(ConfigurableResource):
 dbx_bronze_resource = DatabricksResource(
     source="abfss://demo@saintern.dfs.core.windows.net",
     dest="abfss://demo1@saintern1.dfs.core.windows.net",
-    notebook_path="/Users/wm1371b@norges-bank.no/Shared/.bundle/transformation/dev/files/src/transformation/gleif/gleif-lei-files_landing-to-bronze",
+    notebook_path="/Users/wm1371b@norges-bank.no/Shared/.bundle/transformation/dev/files/src/transformation/gleif/gleif-lei-records_landing-to-bronze",
     cluster_id="0731-085114-wmrqrgur",
 )
 dbx_silver_resource = DatabricksResource(
     source="abfss://demo1@saintern1.dfs.core.windows.net",
     dest="abfss://demo2@saintern2.dfs.core.windows.net",
-    notebook_path="/Users/wm1371b@norges-bank.no/Shared/.bundle/transformation/dev/files/src/transformation/gleif/gleif-lei-files_bronze-to-silver",
+    notebook_path="/Users/wm1371b@norges-bank.no/Shared/.bundle/transformation/dev/files/src/transformation/gleif/gleif-lei-records_bronze-to-silver",
     cluster_id="0731-085114-wmrqrgur",
 )
