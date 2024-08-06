@@ -29,6 +29,7 @@ lei_records_landing = SourceAsset(key=AssetKey("lei_records_landing"))
 @asset(
     group_name="lei_records",
     compute_kind="databricks",
+    deps=[lei_records_landing],
 )
 def lei_records_bronze(
     context: AssetExecutionContext,
