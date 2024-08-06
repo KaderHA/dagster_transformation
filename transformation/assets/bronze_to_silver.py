@@ -16,7 +16,11 @@ from transformation.assets.landing_to_bronze import lei_records_bronze
 from transformation.resources import DatabricksResource
 
 
-@asset(deps=[lei_records_bronze])
+@asset(
+    group_name="lei_records",
+    compute_kind="databricks",
+    deps=[lei_records_bronze],
+)
 def lei_records_silver(
     context: AssetExecutionContext,
     dbx_client: ResourceParam[WorkspaceClient],
