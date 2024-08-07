@@ -26,8 +26,6 @@ def lei_records_silver(
     dbx_client: ResourceParam[WorkspaceClient],
     silver: DatabricksResource,
 ):
-    client = WorkspaceClient()
-
     """lei records Transform to silver"""
     with open_pipes_session(
         context=context,

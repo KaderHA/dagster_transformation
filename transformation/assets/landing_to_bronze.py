@@ -1,5 +1,6 @@
-from typing import Dict
 import sys
+
+from datetime import datetime
 
 from dagster import (
     AssetExecutionContext,
@@ -23,7 +24,6 @@ from transformation.resources import DatabricksResource
 
 
 lei_records_landing = SourceAsset(key=AssetKey("lei_records_landing"))
-
 
 
 @asset(
@@ -59,7 +59,7 @@ def lei_records_bronze(
     ) as pipes_session:
         env_vars = pipes_session.get_bootstrap_env_vars()
         env_vars["file_type"] = "delta_files"
-        env_vars["date"] = "2024/08/02"
+        env_vars["date"] = datetime.now().strftime("%Y/%m/%d")
         bronze.launch_databricks_notebook(env_vars)
 
     yield from pipes_session.get_results()
