@@ -1,7 +1,14 @@
 from typing import Dict
 import sys
 
-from dagster import AssetExecutionContext, ResourceParam, asset, open_pipes_session
+from dagster import (
+    AssetExecutionContext,
+    AssetKey,
+    ResourceParam,
+    SourceAsset,
+    asset,
+    open_pipes_session,
+)
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import jobs
@@ -15,7 +22,15 @@ from dagster_databricks.pipes import (
 from transformation.resources import DatabricksResource
 
 
-@asset
+lei_records_landing = SourceAsset(key=AssetKey("lei_records_landing"))
+
+
+
+@asset(
+    group_name="lei_records",
+    compute_kind="databricks",
+    deps=[lei_records_landing],
+)
 def lei_records_bronze(
     context: AssetExecutionContext,
     dbx_client: ResourceParam[WorkspaceClient],
