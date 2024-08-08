@@ -1,7 +1,13 @@
 from typing import Dict
 import sys
 
-from dagster import AssetExecutionContext, ResourceParam, asset, open_pipes_session
+from dagster import (
+    AutoMaterializePolicy,
+    AssetExecutionContext,
+    ResourceParam,
+    asset,
+    open_pipes_session,
+)
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import jobs
@@ -19,6 +25,7 @@ from transformation.resources import DatabricksResource
 @asset(
     group_name="lei_records",
     compute_kind="databricks",
+    auto_materialize_policy=AutoMaterializePolicy.eager(),
     deps=[lei_records_bronze],
 )
 def lei_records_silver(
