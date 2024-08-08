@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 
 from dagster import (
+    AutoMaterializePolicy,
     AssetExecutionContext,
     AssetKey,
     ResourceParam,
@@ -29,6 +30,7 @@ lei_records_landing = SourceAsset(key=AssetKey("lei_records_landing"))
 @asset(
     group_name="lei_records",
     compute_kind="databricks",
+    auto_materialize_policy=AutoMaterializePolicy.eager(),
     deps=[lei_records_landing],
 )
 def lei_records_bronze(
